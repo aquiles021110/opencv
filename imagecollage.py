@@ -23,3 +23,19 @@ for image in os.listdir('.'):
         resizedimage=img.resize((meanwidth,meanheight),Image.LANCZOS)
         resizedimage.save(image,'JPEG',quality=95)
         print(img.filename.split('\\')[-1],'is resized')
+def VideoGenerator():
+    vidname='Collage.avi'
+    os.chdir('c:\\Users\\chris\\Desktop\\VSCODE\\OpenCV\\images')
+    images=[]
+    for image in os.listdir('.'):
+        if image.endswith('.jpg') or image.endswith('.jpeg') or image.endswith('.png'):
+            images.append(image)
+    print(images)
+    frame=cv2.imread(os.path.join('.',images[0]))
+    height,width,layers=frame.shape
+    video=cv2.VideoWriter(vidname,0,1,(width,height))
+    for image in images: 
+        video.write(cv2.imread(os.path.join('.',image)))
+    cv2.destroyAllWindows()
+    video.release()
+VideoGenerator()
